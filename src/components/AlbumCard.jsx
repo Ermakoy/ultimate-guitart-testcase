@@ -7,9 +7,7 @@ import {
   CardHeaderPrimary,
   CardActions,
   CardActionsMain,
-  Button,
-  CardContent,
-  CardContentText
+  Button
 } from "reactackle";
 
 const Wrapper = styled.div`
@@ -21,17 +19,14 @@ const Image = styled.img`
   width: 250px;
 `;
 
-export const AlbumCard = ({album, addAlbum, deleteAlbum}) => (
+export const AlbumCard = ({ album, addAlbum, deleteAlbum }) => (
   <Wrapper>
     <Card>
       <CardAreaMain>
         <CardMedia
           mediaElement={
             <Image
-              src={`http://coverartarchive.org/release/${() => {
-                console.log(album);
-                return album.id;
-              }}/front`}
+              src={`http://coverartarchive.org/release/${album.id}/front`}
             />
           }
         />
@@ -42,8 +37,8 @@ export const AlbumCard = ({album, addAlbum, deleteAlbum}) => (
         />
         <CardActions>
           <CardActionsMain>
-            <Button onPress={addAlbum} text="Добавить"/>
-            <Button onPress={deleteAlbum} text="Удалить"/>
+            <Button onPress={addAlbum} text="Добавить" />
+            <Button onPress={deleteAlbum} text="Удалить" />
           </CardActionsMain>
         </CardActions>
       </CardAreaMain>

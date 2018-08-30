@@ -1,12 +1,12 @@
 import * as React from "react";
 import styled from "styled-components";
-import {Box, Flex} from "grid-styled";
-import {Text, RadioGroup, TextField, Button} from "reactackle";
-import {Form, State, Compose} from "react-powerplug";
-import {getAlbumsById, getAlbumsByName} from "../api";
-import {AlbumCard} from "./AlbumCard";
-import {actions} from "../actions";
-import {connect} from "react-redux";
+import { Box, Flex } from "grid-styled";
+import { Text, RadioGroup, TextField, Button } from "reactackle";
+import { Form, State, Compose } from "react-powerplug";
+import { getAlbumsById, getAlbumsByName } from "../api";
+import { AlbumCard } from "./AlbumCard";
+import { actions } from "../actions";
+import { connect } from "react-redux";
 
 const Container = styled(Flex).attrs({
   flexDirection: "column",
@@ -18,20 +18,15 @@ const Container = styled(Flex).attrs({
 `;
 
 const options = [
-  {text: "По названию", value: "name"},
-  {text: "По ID", value: "id"}
+  { text: "По названию", value: "name" },
+  { text: "По ID", value: "id" }
 ];
 
-const getInitialState = () => ({loading: false, fetchState: {data: []}});
-
-const getErrorState = () => ({
-  loading: false,
-  fetchState: {type: "error", data: "Произошла ошибка"}
-});
+const getInitialState = () => ({ loading: false, fetchState: { data: [] } });
 
 const getSuccessState = data => ({
   loading: false,
-  fetchState: {type: "success", data}
+  fetchState: { type: "success", data }
 });
 
 const searchBy = {
@@ -44,17 +39,17 @@ export const InnerSearchTab = props => (
     <Text display="headline">Поиск</Text>
     <Compose
       components={[
-        <Form initial={{searchText: "", searchOption: ""}}/>,
-        <State initial={getInitialState()}/>
+        <Form initial={{ searchText: "", searchOption: options[0].value }} />,
+        <State initial={getInitialState()} />
       ]}
     >
-      {({input, values}, {state, setState}) => {
+      {({ input, values }, { state, setState }) => {
         const onClick = () => {
           searchBy[values.searchOption](values.searchText).then(data =>
             setState(getSuccessState(data))
           );
         };
-        const setValue = fieldName => ({value}) =>
+        const setValue = fieldName => ({ value }) =>
           input(fieldName).set(value);
         return (
           <React.Fragment>
@@ -83,21 +78,21 @@ export const InnerSearchTab = props => (
                 onPress={onClick}
               />
             </Flex>
-            <Flex/>
+            <Flex />
             <Flex
-              alignItems={"space-around"}
-              justifyContent={"space-between"}
-              flexWrap={"wrap"}
+              alignItems="space-around"
+              justifyContent="space-between"
+              flexWrap="wrap"
             >
-              {state.fetchState.data.length &&
-              state.fetchState.data.map(album => (
-                <AlbumCard
-                  album={album}
-                  key={album.id}
-                  addAlbum={props.addAlbum(album)}
-                  deleteAlbum={props.deleteAlbum(album.id)}
-                />
-              ))}
+              {!!state.fetchState.data.length &&
+                state.fetchState.data.map(album => (
+                  <AlbumCard
+                    album={album}
+                    key={album.id}
+                    addAlbum={props.addAlbum(album)}
+                    deleteAlbum={props.deleteAlbum(album.id)}
+                  />
+                ))}
             </Flex>
           </React.Fragment>
         );

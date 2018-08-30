@@ -1,10 +1,10 @@
 import * as React from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import styled from "styled-components";
-import {Flex} from "grid-styled";
-import {Text} from "reactackle";
-import {AlbumCard} from "./AlbumCard";
-import {actions} from "../actions";
+import { Flex } from "grid-styled";
+import { Text } from "reactackle";
+import { AlbumCard } from "./AlbumCard";
+import { actions } from "../actions";
 
 const Container = styled(Flex).attrs({
   flexDirection: "column",
@@ -24,19 +24,19 @@ const InnerSavedTab = props => (
       flexWrap={"wrap"}
     >
       {!!Object.keys(props.albums).length &&
-      Object.keys(props.albums).map(id => (
-        <AlbumCard
-          album={props.albums[id]}
-          key={id}
-          addAlbum={props.addAlbum(props.albums[id])}
-          deleteAlbum={props.deleteAlbum(id)}
-        />
-      ))}
+        Object.keys(props.albums).map(id => (
+          <AlbumCard
+            album={props.albums[id]}
+            key={id}
+            addAlbum={props.addAlbum(props.albums[id])}
+            deleteAlbum={props.deleteAlbum(id)}
+          />
+        ))}
     </Flex>
   </Container>
 );
 
-const mapStateToProps = ({albums}) => ({albums});
+const mapStateToProps = ({ albums }) => ({ albums });
 
 const mapDispatchToProps = dispatch => ({
   addAlbum: album => () => dispatch(actions.addAlbum(album)),
